@@ -12,3 +12,13 @@
 #loadMore {
     display: none;
 }
+
+.tab{
+    display: none;
+}
+.active {
+    display: block;
+}
+.hidden {
+    display: none!important;
+}
