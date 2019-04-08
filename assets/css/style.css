@@ -1,0 +1,14 @@
+#images {
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+}
+.giphyImg {
+    width: 200px;
+}
+.img-info {
+    width: 200px;
+}
+#loadMore {
+    display: none;
+}
