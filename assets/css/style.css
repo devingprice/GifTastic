@@ -1,30 +1,34 @@
-#images {
-    display: flex;
-    flex-direction:row;
-    flex-wrap: wrap;
-    align-items:center;
-    justify-content: center;
+:root{
+    --c-orange: #ffa000;
+    --c-orange-shadow: #d8820a;
+    --c-orange-highlight: #fec700;
+   
 }
-.imgCard {
-    margin: 10px;
-    width: 200px;
-}
-.giphyImg {
-    width: 100%;
-}
-.img-info {
-    width: 100%;
-    position: relative;
-}
-#loadMore {
+
+
+#loadMore, #clearButton {
     display: none;
+
+    color: var(--c-orange);
+    border: 3px solid var(--c-orange);
+}
+#loadMore:hover, #clearButton:hover {
+    background: var(--c-orange);
+    color: white;
+    border: 3px solid var(--c-orange);
 }
 
 .tab-content{
     display: none;
 }
 .active {
-    display: block;
+    
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    align-items:center;
+    justify-content: center;
+    
 }
 .hidden {
     display: none!important;
@@ -33,41 +37,174 @@
 #tabs{
     display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
+    padding: 10px 0;
 }
 .tab{
     width:50%;
     text-align: center;
+    font-family: 'Merriweather Sans', sans-serif;
+    font-weight: 900;
+    color: white;
+    font-size: 24px;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+
+}
+.tab:hover{
+    color: var(--c-orange-highlight);
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
 }
 
-#buttonRow {
+#buttonRow, #controlRow {
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 }
+#controlRow {
+    margin: 30px 0;
+}
 .buttonTopic {
     margin: 10px 20px;
+}
+header {
+    background-color: var(--c-orange);
 }
 #addTopic {
     display:flex;
     flex-direction: row;
     justify-content: center;
+    padding-bottom: 50px;
+    background: linear-gradient(var(--c-orange), var(--c-orange-shadow));
+}
+main {
+    margin-top: -25px;
+}
+
+
+button, #submitButton {
+    color: white;
+    background: transparent;
+    border: 3px solid white;
+    border-radius: 5px;
+    transition: all 0.5s ease;
+    transform: translate(0, 0);
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    position: relative;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    padding: 6px 24px;
+    text-transform: uppercase;
+    font-family: 'Merriweather Sans', sans-serif;;
+    font-size: 16px;
+}
+button:hover, #submitButton:hover{
+    background: var(--c-orange-highlight);
+    color: var(--c-orange);
+    border: 3px solid var(--c-orange-highlight);
+    transition: all 0.35s ease;
+}
+
+
+.imgCard {
+    margin: 10px;
+    width: 220px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.25s ease-in-out;
+}
+.imgCard:hover{
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.giphyImg {
+    width: 100%;
+}
+
+.img-info {
+    position: relative;
+    padding: 4px;
+    font-family: 'Muli', sans-serif;
+}
+.img-meta {
+    opacity: .7;
+}
+.img-meta__row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+.o-hover:hover {
+    color: var(--c-orange)
+}
+.img-info h3 {
+    font-family: 'Merriweather Sans', sans-serif;
+    
+}
+.fa-external-link-alt, .fa-cloud-download-alt {
+    color: black;
+    text-decoration: none;
+}
+.fa-external-link-alt:hover, .fa-cloud-download-alt:hover {
+    color: var(--c-orange-shadow)
 }
 .favButton{
     position: absolute;
     bottom: calc(100% + 3px);
-    right:0;
+    right: 0; /*8px;*/
     background-color: rgba(0,0,0,50%);
     padding: 4px;
+    opacity: 1;
 }
 .fa-heart {
     color: white;
 }
+.liked-heart {
+    color: var(--c-orange);
+    animation: liked 0.4s linear;
+}
+@keyframes liked {
+    0% {
+        -webkit-transform: scale(0.5);
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    60% {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+        opacity: 1;
+    }
+    99% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: .4;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
 
 @media screen and (max-width: 500px){
     .imgCard {
         margin: 10px;
         width: 100%;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .imgCard {
+        width: 400px;
     }
 }

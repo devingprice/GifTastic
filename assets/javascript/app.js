@@ -1,4 +1,4 @@
-var topics = ['cat', 'dog']
+var topics = ['reactions', 'deal with it', 'lmao', 'clapping', 'stop', 'crying', 'wut', 'fail', 'high quality', 'say what']
 var activeTopic = null; 
 
 // Search Buttons
@@ -103,17 +103,29 @@ function createImageInfo(imageData) {
 
     var imageUrl = imageData.images.original.url;
 
-    return $('<div>', { class: 'img-info' }).append(
-        $('<h3>').text(title),
-        $('<div>').text('rating: ' + rating),
-        $('<div>').text('score: ' + score),
-        $('<div>').text('time: ' + time),
-        $('<a>').attr('href', source).text('source'),
-        $('<a>').attr({
+    var imageInfo = $('<div>', { class: 'img-info' });
+    var like = $('<a>').attr('href', source).html('<i class="fas fa-external-link-alt"></i>');
+    var download = $('<a>').attr({
             'target': "_blank",
             'href': imageUrl,
             'download': ''
-        }).text('Download'),
+        }).html('<i class="fas fa-cloud-download-alt"></i>');
+    var metaData = $('<div>', { class: 'img-meta' }).append(
+        $('<div>',{class: 'img-meta__row'}).append(
+            $('<div>').text('rated ' + rating ),
+            $('<div>').text( time.split(' ')[0] )
+        ),
+        $('<div>',{class: 'img-meta__row'}).append(
+            $('<div>').html('<i class="fas fa-arrow-alt-circle-up"></i> ' + Math.floor( parseInt(score))),
+            like,
+            download
+        ),
+        
+    );
+    return imageInfo.append(
+        $('<h3>').text(title),
+        metaData,
+        
         addFavoritesButton(imageData)
     )
 }
@@ -131,7 +143,6 @@ function loadMoreButton(q = null){
         $('#loadMore').attr('data-topic', q)
     }
 }
-
 function hideLoadMore(){
     $('#loadMore').hide();
 }
@@ -143,11 +154,9 @@ function clickFavoritesTab() {
     $('#images').addClass('hidden') //images has display flex set by id so it has to be overwritten with display:none!important
     $('#favorites').addClass('active')
     $('#buttonRow').hide();
-
+    $('#clearButton').show();
     $('#favorites').empty();
-    $('#favorites').append($('<button>').text('Clear').on('click', function () {
-        clearFavorites()
-    }));
+    
     var favorites = retrieveFavorites();
     for (var i = 0; i < favorites.length; i++) {
         renderImages(favorites[i], "#favorites")
@@ -161,6 +170,7 @@ function clickSearchTab() {
     $('#images').addClass('active')
     $('#images').removeClass('hidden')
     $('#buttonRow').show();
+    $('#clearButton').hide();
 
     loadMoreButton();
 }
@@ -191,12 +201,12 @@ function addFavoritesButton(imageData){
         .on('click', function(){
             if( !containedInFavorites(imageData.url) ){
                 storeFavorites(imageData)
-                $(this).html('<i class="fas fa-heart"></i>')
+                $(this).html('<i class="fas fa-heart liked-heart"></i>')
             }
             
         });
     if( containedInFavorites(imageData.url) ){
-        favButton.html('<i class="fas fa-heart"></i>')
+        favButton.html('<i class="fas fa-heart liked-heart"></i>')
     }
     return favButton;
 }
@@ -221,6 +231,9 @@ function initialize(){
     $('#searchNav').on('click', clickSearchTab )
     $('#favoritesNav').on('click', clickFavoritesTab )
 
+    $('#clearButton').on('click', function () {
+        clearFavorites()
+    });
     $('#addTopic').submit(function(event){
         event.preventDefault();
         var text = $('#newTopic').val();
