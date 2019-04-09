@@ -13,7 +13,7 @@
     display: none;
 }
 
-.tab{
+.tab-content{
     display: none;
 }
 .active {
@@ -21,4 +21,22 @@
 }
 .hidden {
     display: none!important;
+}
+
+#tabs{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+.tab{
+    width:50%;
+}
+
+#buttonsRow {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.buttonTopic {
+    margin: 10px 20px;
 }

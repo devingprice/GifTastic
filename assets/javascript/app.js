@@ -119,8 +119,15 @@ function buttonClick(){
 function clearImages(){
     $('#images').empty()
 }
-function loadMoreButton(q){
-    $('#loadMore').attr('data-topic', q).show();
+function loadMoreButton(q = null){
+    $('#loadMore').show()
+    if( q ){
+        $('#loadMore').attr('data-topic', q)
+    }
+}
+
+function hideLoadMore(){
+    $('#loadMore').hide();
 }
 
 var favorites = {'favorites': []};
@@ -154,12 +161,14 @@ function clickFavoritesTab(){
         renderImages( favorites.favorites[i], "#favorites")
     }
     addImageClick();
+    hideLoadMore();
 }
 function clickSearchTab(){
     console.log('clicked search')
     $('#favorites').removeClass('active')
     $('#images').addClass('active')
     $('#images').removeClass('hidden')
+    loadMoreButton();
 }
 
 function initialize(){
